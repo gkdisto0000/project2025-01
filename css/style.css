@@ -724,3 +724,54 @@ body {
 .related-sites:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
+
+/* section4 */
+.section4 {
+    position: relative;
+    z-index: 1;
+    padding: 100px 0;
+}
+
+.section4-cont {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: all 0.5s ease;
+    margin-bottom: 20px;
+    transform: translateY(0);
+}
+
+.section4-cont.active {
+    opacity: 1;
+    transform: translateY(-20px);
+}
+
+.section4-cont .conHdr {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: transform 0.5s ease;
+}
+
+.section4-cont.active .conHdr {
+    transform: translateY(-20px);
+}
+
+body.dark-mode .section4-cont .conHdr {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+}
+
+body.dark-mode .section4-cont:nth-child(1) .conHdr {background: red;}
+body.dark-mode .section4-cont:nth-child(2) .conHdr {background: blue;}
+body.dark-mode .section4-cont:nth-child(3) .conHdr {background: green;}
+body.dark-mode .section4-cont:nth-child(4) .conHdr {background: yellow;}
+body.dark-mode .section4-cont:nth-child(5) .conHdr {background: orange;}
+body.dark-mode .section4-cont:nth-child(6) .conHdr {background: purple;}

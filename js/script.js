@@ -117,17 +117,21 @@ $(document).ready(function() {
             }
         });
 
-        // section3 다크모드 체크
+        // section3, section4 다크모드 체크
         const section3 = $('.section3');
-        if(section3.length) {  // section3이 존재하는 경우에만 실행
+        const section4 = $('.section4');
+        if(section3.length || section4.length) {  // section3 또는 section4가 존재하는 경우에만 실행
             const section3Top = section3.offset().top;
             const section3Bottom = section3Top + section3.outerHeight();
+            const section4Top = section4.offset().top;
+            const section4Bottom = section4Top + section4.outerHeight();
             const windowHeight = $(window).height();
             const scrollTop = $(window).scrollTop();
             const triggerPoint = scrollTop + (windowHeight * 0.5); // 화면 중간 지점에서 전환
 
-            // 섹션3 영역에 들어왔는지 체크
-            if (triggerPoint >= section3Top && scrollTop <= section3Bottom) {
+            // 섹션3 또는 섹션4 영역에 들어왔는지 체크
+            if ((triggerPoint >= section3Top && scrollTop <= section3Bottom) || 
+                (triggerPoint >= section4Top && scrollTop <= section4Bottom)) {
                 $('body').addClass('dark-mode');
             } else {
                 $('body').removeClass('dark-mode');
@@ -170,6 +174,51 @@ $(document).ready(function() {
             }, 50);
         }
     });
+
+    // section4 스크롤 이벤트 처리
+    function handleSection4Scroll() {
+        const section4 = $('.section4');
+        if(section4.length) {
+            const section4Top = section4.offset().top;
+            const section4Bottom = section4Top + section4.outerHeight();
+            const windowHeight = $(window).height();
+            const scrollTop = $(window).scrollTop();
+            const triggerPoint = scrollTop + (windowHeight * 0.5);
+
+            // section4 영역에 들어왔는지 체크
+            if (triggerPoint >= section4Top && scrollTop <= section4Bottom) {
+                const section4Conts = $('.section4-cont');
+                const sectionHeight = section4.outerHeight();
+                const contHeight = sectionHeight / section4Conts.length;
+                
+                section4Conts.each(function(index) {
+                    const contTop = section4Top + (contHeight * index);
+                    const contBottom = contTop + contHeight;
+                    
+                    if (scrollTop >= contTop && scrollTop < contBottom) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+            }
+        }
+    }
+
+    // 스크롤 이벤트에 section4 처리 추가
+    $(window).scroll(function() {
+        if (!isScrolling) {
+            isScrolling = true;
+            setTimeout(function() {
+                checkScroll();
+                handleSection4Scroll();
+                isScrolling = false;
+            }, 50);
+        }
+    });
+
+    // 초기 로드 시 section4 처리
+    handleSection4Scroll();
 
 
 
