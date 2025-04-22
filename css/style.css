@@ -841,8 +841,8 @@ body.dark-mode .logo,
     top: 90px;
 }
 .section4-cont:nth-child(4) { 
-    z-index: 4;
-    top: 120px;
+    z-index: 3;
+    top: 160px;
 }
 
 .section4-cont .conHdr {
