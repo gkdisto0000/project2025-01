@@ -79,7 +79,7 @@ $(document).ready(function() {
     function checkScroll() {
         const windowHeight = $(window).height();
         const scrollTop = $(window).scrollTop();
-        const triggerOffset = 400; // 섹션 상단이 뷰포트 상단에 도달하기 200px 전에 활성화
+        const triggerOffset = 500; // 섹션 상단이 뷰포트 상단에 도달하기 500px 전에 활성화
 
         // Section 1, 2, 3의 .after-line 요소 체크 (섹션 기준, 오프셋 적용)
         $('.conSection:not(.section4)').each(function() {
@@ -92,7 +92,7 @@ $(document).ready(function() {
 
             const sectionOffsetTop = section.offset().top;
 
-            // 현재 스크롤 위치가 (섹션 상단 위치 - 200px) 보다 크면 활성화
+            // 현재 스크롤 위치가 (섹션 상단 위치 - 500px) 보다 크면 활성화
             if (scrollTop > sectionOffsetTop - triggerOffset) {
                  afterLine.addClass('active');
             }
@@ -322,40 +322,58 @@ $(document).ready(function() {
         'z-index': '1000'
     });
 
-    // graph-list 카운터 애니메이션 처리
+    // graph-list 카운터 애니메이션 처리 (순차 시작)
     function startGraphCounter() {
-        const graphList = $('.graph-list li');
+        const graphPoint = $('.graph-point');
+        if (!graphPoint.length || graphPoint.hasClass('counter-started')) {
+            return; // 요소 없거나 이미 시작됨
+        }
+
         const windowHeight = $(window).height();
-        const scrollTop = $(window).scrollTop();
-        const windowMiddle = scrollTop + (windowHeight * 0.4); // 화면 중간 지점
+        const rect = graphPoint[0].getBoundingClientRect();
+        const pointTopViewport = rect.top;
+        const pointBottomViewport = rect.bottom;
+        const isVisible = pointTopViewport < windowHeight && pointBottomViewport > 0;
 
-        graphList.each(function() {
-            const item = $(this);
-            const dd = item.find('dd');
-            const targetNumber = parseInt(dd.text());
-            const itemTop = item.offset().top;
-            const itemHeight = item.outerHeight();
-            const itemBottom = itemTop + itemHeight;
+        if (isVisible) {
+            // console.log('[Graph Counter] Starting counters sequentially.');
+            graphPoint.addClass('counter-started'); // 전체 섹션 기준 중복 실행 방지
+            const sequentialDelay = 300; // 각 카운터 시작 간 지연 시간 (ms)
 
-            // 아이템이 화면 중간 지점을 지나갔는지 확인
-            if (itemTop <= windowMiddle && itemBottom >= windowMiddle && !item.hasClass('counted')) {
-                item.addClass('counted');
-                let currentNumber = 0;
-                const duration = 2000; // 2초 동안 카운트
-                const steps = 60; // 60프레임
-                const increment = targetNumber / steps;
-                const interval = duration / steps;
+            graphPoint.find('.graph-list li').each(function(index) {
+                const item = $(this);
+                const dd = item.find('dd');
 
-                const counter = setInterval(() => {
-                    currentNumber += increment;
-                    if (currentNumber >= targetNumber) {
-                        currentNumber = targetNumber;
-                        clearInterval(counter);
+                if (dd.length > 0 && !item.hasClass('counted')) { // dd가 있고 아직 카운트 안된 항목만
+                    const targetNumberText = dd.text();
+                    const targetNumber = parseInt(targetNumberText);
+
+                    if (!isNaN(targetNumber)) {
+                        // index * delay 시간 후에 카운터 시작
+                        setTimeout(() => {
+                            // console.log(`Starting counter for item ${index + 1}`);
+                            item.addClass('counted'); // 카운터 시작 직전 클래스 추가 (CSS용)
+                            let currentNumber = 0;
+                            const duration = 2000; // 2초 동안 카운트
+                            const steps = 60;
+                            const increment = (targetNumber === 0) ? 0 : targetNumber / steps;
+                            const interval = duration / steps;
+
+                            const counter = setInterval(() => {
+                                currentNumber += increment;
+                                if ((increment >= 0 && currentNumber >= targetNumber) || (increment < 0 && currentNumber <= targetNumber)) {
+                                    currentNumber = targetNumber;
+                                    clearInterval(counter);
+                                }
+                                dd.text(Math.floor(currentNumber));
+                            }, interval);
+                        }, index * sequentialDelay);
                     }
-                    dd.text(Math.floor(currentNumber));
-                }, interval);
-            }
-        });
+                } else if (!dd.length) {
+                    // console.log('dd element not found in li index:', index);
+                }
+            });
+        }
     }
 
     // 스크롤 이벤트에 graph 카운터 추가
@@ -365,18 +383,17 @@ $(document).ready(function() {
             setTimeout(function() {
                 checkScroll();
                 handleSection4Scroll();
-                startGraphCounter();
+                startGraphCounter(); // 스크롤 시 계속 체크
                 isScrolling = false;
-            }, 100); // 스로틀링 시간 증가
+            }, 100); 
         }
     });
 
     // 초기 로드 시에도 체크
     $(document).ready(function() {
-        // DOM이 완전히 로드된 후 약간의 지연을 두고 체크
         setTimeout(() => {
-            startGraphCounter();
-        }, 1000); // 초기 로드 지연 시간 증가
+            startGraphCounter(); // 초기 로드 시 체크
+        }, 1000);
     });
 
 });

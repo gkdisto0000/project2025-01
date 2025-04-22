@@ -1072,12 +1072,14 @@ body.dark-mode .section4-cont .conHdr {
     content: '';
     display: block;
     width: 1px;
-    height: 20px;
+    height: 0px;
     background-color: #fff;
     position: absolute;
     bottom: 20px;
     left: 50%;
+    transition: height 0.3s ease;
 }
+
 
 .section4-cont .section4-cont-item .graph-list li:nth-child(1) dt {
     padding-top: 70px;
@@ -1118,18 +1120,20 @@ body.dark-mode .section4-cont .conHdr {
 .section4-cont .section4-cont-item .graph-list li:nth-child(5) {
     left: 84%;
 }
-
-.section4-cont .section4-cont-item .graph-list li:nth-child(2) dt:before {
+.section4-cont .section4-cont-item .graph-list li.counted:nth-child(1) dt:before {
+    height: 20px;
+}
+.section4-cont .section4-cont-item .graph-list li.counted:nth-child(2) dt:before {
     height: 70px;
 }
-.section4-cont .section4-cont-item .graph-list li:nth-child(3) dt:before {
+.section4-cont .section4-cont-item .graph-list li.counted:nth-child(3) dt:before {
     height: 180px;
 }
 
-.section4-cont .section4-cont-item .graph-list li:nth-child(4) dt:before {
+.section4-cont .section4-cont-item .graph-list li.counted:nth-child(4) dt:before {
     height: 340px;
 }
 
-.section4-cont .section4-cont-item .graph-list li:nth-child(5) dt:before {
+.section4-cont .section4-cont-item .graph-list li.counted:nth-child(5) dt:before {
     height: 480px;
 }
