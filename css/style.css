@@ -3,9 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
 body {
     font-family: 'Pretendard', sans-serif;
     font-size: 1.6rem;
+    line-height: 1.5;
+    min-width: 320px;
 }
 
 .dark-mode .conSection {
@@ -51,14 +60,13 @@ body {
     left: 0;
     width: 100%;
     background-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
     z-index: 1000;
-    color: #fff;
+    transition: background-color 0.3s ease;
 }
 
-.header.scrolled {
+header.scrolled {
     background-color: #fff;
-    color: #000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .header.scrolled .logo {
@@ -1140,4 +1148,390 @@ body.dark-mode .section4-cont .conHdr {
 
 .section4-cont .section4-cont-item .graph-list li.counted:nth-child(5) dt:before {
     height: 84%;
+}
+
+/* Responsive Design */
+
+/* 타블렛 반응형 */
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 90%;
+        padding: 0 2rem;
+    }
+
+    /* 헤더 조정 */
+    .header .nav-container {
+        padding: 1.5rem;
+    }
+
+    .nav-menu {
+        gap: 1.5rem;
+    }
+
+    .nav-menu a {
+        font-size: 1.2rem;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.2rem;
+    }
+
+    .conSection {
+        padding: 2rem 0;
+    }
+
+    /* 메인 배너 조정 */
+    .main-banner-content {
+        max-width: 80%;
+    }
+
+    .main-banner-title {
+        font-size: 5rem;
+    }
+
+    .main-banner-subtitle {
+        font-size: 2rem;
+    }
+
+    /* 섹션1 조정 */
+    .section1-cont .flex {
+        flex-direction: column;
+        padding-right: 0;
+    }
+
+    .section1-cont .news-main-content,
+    .section1-cont .news-main-image {
+        width: 100%;
+    }
+
+    .section1-cont .news-main-image {
+        margin-top: 2rem;
+    }
+
+    /* 섹션2 조정 */
+    .section2-cont {
+        flex-direction: column;
+    }
+
+    .section2-cont-item {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    /* 섹션3 조정 */
+    .section3-cont {
+        flex-direction: column;
+    }
+
+    .section3-cont-item {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    /* 섹션4 조정 */
+    .section4-cont {
+        padding: 5rem 0;
+    }
+
+    .section4-cont .conHdr {
+        padding: 1.5rem;
+    }
+
+    .section4-cont .section4-cont-item ul.card-list {
+        flex-direction: column;
+    }
+
+    .section4-cont .section4-cont-item ul.card-list li {
+        width: 100%;
+    }
+
+    /* 메인 배너 텍스트 조정 */
+    .main-banner .main-banner-txt h2 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .main-banner .main-banner-txt p {
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+    }
+
+    .main-banner .main-banner-txt .banner-btn {
+        font-size: 1.3rem;
+        padding: 1.2rem 2.5rem;
+    }
+
+    .main-banner-subtitle {
+        font-size: 2rem;
+    }
+
+    .main-banner-title {
+        font-size: 5rem;
+    }
+
+    .main-banner-desc {
+        font-size: 1.6rem;
+    }
+
+    /* 섹션 헤더 조정 */
+    .conHdr h3 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .conHdr p {
+        font-size: 1.4rem;
+    }
+
+    .after-line {
+        margin-bottom: 2rem;
+    }
+}
+
+/* 모바일 반응형 */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    /* 헤더 조정 */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .header .nav-container {
+        padding: 1rem;
+        position: relative;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.8rem 0;
+        font-size: 1.2rem;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #000;
+        margin: 5px 0;
+        transition: 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .cta-nav {
+        display: none;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    /* 메인 배너 조정 */
+    .main-banner-content {
+        max-width: 100%;
+    }
+
+    .main-banner-title {
+        font-size: 3.5rem;
+    }
+
+    .main-banner-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .main-banner-desc {
+        font-size: 1.4rem;
+    }
+
+    .main-banner-btns {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .banner-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 섹션1 조정 */
+    .section1-cont .news-main-content h3 {
+        font-size: 2rem;
+    }
+
+    .section1-cont .news-main-content p {
+        font-size: 1.2rem;
+    }
+
+    /* 섹션2 조정 */
+    .section2-cont-item-content h4 {
+        font-size: 1.4rem;
+    }
+
+    .section2-cont-item-content p {
+        font-size: 1.1rem;
+    }
+
+    /* 섹션3 조정 */
+    .section3-cont-item-content h4 {
+        font-size: 1.4rem;
+    }
+
+    .section3-cont-item-content p {
+        font-size: 1.1rem;
+    }
+
+    /* 섹션4 조정 */
+    .section4-cont {
+        padding: 3rem 0;
+    }
+
+    .section4-cont .conHdr h3 {
+        font-size: 2rem;
+    }
+
+    .section4-cont .conHdr p {
+        font-size: 1.1rem;
+    }
+
+    .section4-cont .section4-cont-item .graph-list li {
+        width: 20%;
+    }
+
+    /* 푸터 조정 */
+    .footer {
+        padding: 3rem 0 2rem;
+    }
+
+    .footer-top {
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+
+    .footer-menu {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    /* 메인 배너 텍스트 조정 */
+    .main-banner .main-banner-txt h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .main-banner .main-banner-txt p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .main-banner .main-banner-txt .banner-btn {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+    }
+
+    .main-banner-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .main-banner-title {
+        font-size: 3.5rem;
+    }
+
+    .main-banner-desc {
+        font-size: 1.4rem;
+    }
+
+    .main-banner-btns {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .banner-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 섹션 헤더 조정 */
+    .conHdr h3 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .conHdr p {
+        font-size: 1.2rem;
+    }
+
+    .after-line {
+        margin-bottom: 1.5rem;
+    }
+
+    /* 섹션4 헤더 조정 */
+    .section4-cont .conHdr h3 {
+        font-size: 2rem;
+    }
+
+    .section4-cont .conHdr p {
+        font-size: 1.1rem;
+    }
 }
