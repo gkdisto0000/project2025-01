@@ -1312,6 +1312,19 @@ body.dark-mode .section4-cont .conHdr {
     .header .nav-container {
         padding: 1rem;
         position: relative;
+        flex-wrap: wrap;
+    }
+
+    .nav-menu a {
+        font-size: 0.8rem;
+    }
+
+    .nav-left {
+        gap: 1rem;
+    }
+
+    .nav-container .btn {
+        font-size: 0.8rem;
     }
 
     .nav-links {
